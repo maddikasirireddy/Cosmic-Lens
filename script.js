@@ -22,7 +22,7 @@ async function getAPOD() {
     const imgEl = document.getElementById("img");
 
 imgEl.classList.remove("fade-in"); 
-void imgEl.offsetWidth; // reset animation
+void imgEl.offsetWidth;
 imgEl.classList.add("fade-in");
     const simple = await simplifyText(data.explanation);
 document.getElementById("desc").innerText = simple;
