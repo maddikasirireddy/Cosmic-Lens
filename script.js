@@ -8,7 +8,7 @@ const searchInput = document.getElementById("search");
 const filterSelect = document.getElementById("filter");
 const toggleBtn = document.getElementById("themeToggle");
 
-// 🚀 FETCH APOD
+
 async function getAPOD() {
   const date = document.getElementById("datePicker").value;
 
@@ -22,7 +22,7 @@ async function getAPOD() {
     const res = await fetch(url);
     const data = await res.json();
 
-    apodData = [data]; // always store as array
+    apodData = [data]; 
     render(apodData);
 
   } catch (err) {
@@ -37,7 +37,7 @@ async function getRandomAPOD() {
     const res = await fetch(url);
     const data = await res.json();
 
-    apodData = data; // array of 10
+    apodData = data;
     render(apodData);
 
   } catch (err) {
@@ -47,12 +47,12 @@ async function getRandomAPOD() {
 
 document.getElementById("randomBtn").addEventListener("click", getRandomAPOD);
 
-// 🎨 RENDER
+
 function render(items) {
   const container = document.getElementById("container");
   container.innerHTML = "";
 
-  // 🚀 FILTER OUT BAD DATA FIRST
+
   const validItems = items.filter(item =>
     item &&
     item.url &&
@@ -80,16 +80,17 @@ function render(items) {
     container.appendChild(div);
   });
 }
-// 🔍 SEARCH + FILTER
 function updateDisplay() {
   const searchValue = searchInput.value.toLowerCase();
   const filterValue = filterSelect.value;
 
   const filtered = apodData
-    .filter(item =>
-      item.title.toLowerCase().includes(searchValue) ||
-      item.explanation.toLowerCase().includes(searchValue)
-    )
+    .filter(item => {
+      const title = item.title ? item.title.toLowerCase() : "";
+      const desc = item.explanation ? item.explanation.toLowerCase() : "";
+
+      return title.includes(searchValue) || desc.includes(searchValue);
+    })
     .filter(item => {
       if (filterValue === "image") return item.media_type === "image";
       if (filterValue === "video") return item.media_type === "video";
@@ -99,12 +100,10 @@ function updateDisplay() {
   render(filtered);
 }
 
-// 🎧 EVENTS
 searchInput.addEventListener("input", updateDisplay);
 filterSelect.addEventListener("change", updateDisplay);
 document.getElementById("datePicker").addEventListener("change", getAPOD);
 
-// 🌗 DARK MODE (FIXED)
 toggleBtn.addEventListener("click", () => {
   document.body.classList.toggle("light");
 
@@ -117,14 +116,12 @@ toggleBtn.addEventListener("click", () => {
   }
 });
 
-// 💾 LOAD THEME
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme === "light") {
   document.body.classList.add("light");
   toggleBtn.textContent = "🌙 Dark Mode";
 }
 
-// 🚀 INITIAL LOAD
 getAPOD();
 
 });

@@ -125,7 +125,7 @@ body {
     margin: 10px;
     padding: 10px;
 }
-/* 🌞 LIGHT SPACE THEME */
+
 body.light {
     background: radial-gradient(circle at top, #f3e8ff, #e0f2ff);
     color: #1a1a2e;
@@ -138,19 +138,19 @@ body.light .container {
     box-shadow: 0 0 25px rgba(138, 43, 226, 0.2);
 }
 
-/* Title glow (soft purple) */
+
 body.light h1 {
     color: #6a0dad;
     text-shadow: 0 0 8px #c084fc;
 }
 
-/* Buttons */
+
 body.light button {
     background: linear-gradient(135deg, #a855f7, #38bdf8);
     color: white;
 }
 
-/* Inputs */
+
 body.light input,
 body.light select {
     background: rgba(255, 255, 255, 0.7);
@@ -158,7 +158,7 @@ body.light select {
     border: 1px solid #ccc;
 }
 
-/* Description */
+
 body.light #desc {
     color: #333;
 }
