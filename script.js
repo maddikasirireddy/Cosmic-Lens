@@ -52,15 +52,12 @@ function render(items) {
   const container = document.getElementById("container");
   container.innerHTML = "";
 
-
   const validItems = items.filter(item =>
-    item &&
-    item.url &&
-    (item.media_type === "image" || item.media_type === "video")
+    item && item.url && item.media_type === "image"
   );
 
   if (validItems.length === 0) {
-    container.innerHTML = "<p>No valid space data found 🚀</p>";
+    container.innerHTML = "<p>No valid space images found 🚀</p>";
     return;
   }
 
@@ -70,12 +67,22 @@ function render(items) {
     div.innerHTML = `
       <h3>${item.title}</h3>
       <p>${item.explanation}</p>
-      ${
-        item.media_type === "image"
-          ? `<img src="${item.url}" width="300"/>`
-          : `<iframe src="${item.url}" width="300"></iframe>`
-      }
+
+      <img src="${item.url}" width="300" class="space-img" />
+
+      <br>
+
+      <button class="full-btn">🔍 Fullscreen</button>
     `;
+
+    // 🎯 Get elements
+    const img = div.querySelector(".space-img");
+    const btn = div.querySelector(".full-btn");
+
+    // 🎯 Attach event properly
+    btn.addEventListener("click", () => {
+      goFull(img);
+    });
 
     container.appendChild(div);
   });
@@ -125,14 +132,16 @@ if (savedTheme === "light") {
 getAPOD();
 
 });
-function goFull() {
-  const img = document.getElementById("mainImg");
+function goFull(element) {
+  if (!element) return;
 
-  if (img) {
-    if (img.requestFullscreen) {
-      img.requestFullscreen();
-    } else {
-      alert("Fullscreen not supported");
-    }
+  if (element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if (element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen(); 
+  } else if (element.msRequestFullscreen) {
+    element.msRequestFullscreen(); 
+  } else {
+    alert("Fullscreen not supported");
   }
 }
