@@ -139,37 +139,27 @@ body.light {
     background: radial-gradient(circle at top, #f8f5ff, #e6f7ff);
     color: #1a1a2e;
 }
-
-/* Container */
 body.light .container {
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(15px);
     box-shadow: 0 0 30px rgba(138, 43, 226, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.6);
 }
-
-/* Heading */
 body.light h1 {
     color: #6a0dad;
     text-shadow: 0 0 10px rgba(192, 132, 252, 0.6);
 }
-
-/* Buttons */
 body.light button {
     background: linear-gradient(135deg, #a855f7, #38bdf8);
     color: white;
     box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
 }
-
-/* Inputs + Select */
 body.light input,
 body.light select {
     background: rgba(255, 255, 255, 0.9);
     color: #111;
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
-
-/* Description text */
 body.light #desc {
     color: #333;
 }
