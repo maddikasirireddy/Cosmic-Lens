@@ -1,147 +1,82 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-const API_KEY = "KUqJaTchpwr9mOjXBFpJL4Mixy2BlKXa0qwye3Zi";
+  const API_KEY = "7w6pjVtrKZyi50nO2DRl3g7csbQNqpzyrOy891LY";
 
-let apodData = [];
+  async function getAPOD() {
+    const date = document.getElementById("datePicker").value;
 
-const searchInput = document.getElementById("search");
-const filterSelect = document.getElementById("filter");
-const toggleBtn = document.getElementById("themeToggle");
+    let url = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;
 
+    if (date) {
+      url += `&date=${date}`;
+    }
 
-async function getAPOD() {
-  const date = document.getElementById("datePicker").value;
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
 
-  let url = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;
+      document.getElementById("title").textContent = data.title;
+      document.getElementById("desc").textContent = data.explanation;
+      document.getElementById("img").src = data.url;
 
-  if (date) {
-    url += `&date=${date}`;
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
+  document.getElementById("datePicker").addEventListener("change", getAPOD);
 
-    apodData = [data]; 
-    render(apodData);
+  getAPOD();
 
-  } catch (err) {
-    console.log(err);
-  }
-}
-  
-async function getRandomAPOD() {
-  let url = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&count=10`;
+});
 
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
+document.addEventListener("DOMContentLoaded", () => {
 
-    apodData = data;
-    render(apodData);
+  const toggleBtn = document.getElementById("themeToggle");
 
-  } catch (err) {
-    console.log(err);
-  }
-}
+  if (!toggleBtn) return;
 
-document.getElementById("randomBtn").addEventListener("click", getRandomAPOD);
+  toggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("light");
 
-
-function render(items) {
-  const container = document.getElementById("container");
-  container.innerHTML = "";
-
-  const validItems = items.filter(item =>
-    item && item.url && item.media_type === "image"
-  );
-
-  if (validItems.length === 0) {
-    container.innerHTML = "<p>No valid space images found 🚀</p>";
-    return;
-  }
-
-  validItems.forEach(item => {
-    const div = document.createElement("div");
-
-    div.innerHTML = `
-      <h3>${item.title}</h3>
-      <p>${item.explanation}</p>
-
-      <img src="${item.url}" width="300" class="space-img" />
-
-      <br>
-
-      <button class="full-btn">🔍 Fullscreen</button>
-    `;
-
-    // 🎯 Get elements
-    const img = div.querySelector(".space-img");
-    const btn = div.querySelector(".full-btn");
-
-    // 🎯 Attach event properly
-    btn.addEventListener("click", () => {
-      goFull(img);
-    });
-
-    container.appendChild(div);
+    if (document.body.classList.contains("light")) {
+      toggleBtn.textContent = "🌙 Dark Mode";
+      localStorage.setItem("theme", "light");
+    } else {
+      toggleBtn.textContent = "☀️ Light Mode";
+      localStorage.setItem("theme", "dark");
+    }
   });
-}
-function updateDisplay() {
-  const searchValue = searchInput.value.toLowerCase();
-  const filterValue = filterSelect.value;
 
-  const filtered = apodData
-    .filter(item => {
-      const title = item.title ? item.title.toLowerCase() : "";
-      const desc = item.explanation ? item.explanation.toLowerCase() : "";
+  const savedTheme = localStorage.getItem("theme");
 
-      return title.includes(searchValue) || desc.includes(searchValue);
-    })
-    .filter(item => {
-      if (filterValue === "image") return item.media_type === "image";
-      if (filterValue === "video") return item.media_type === "video";
-      return true;
-    });
-
-  render(filtered);
-}
-
-searchInput.addEventListener("input", updateDisplay);
-filterSelect.addEventListener("change", updateDisplay);
-document.getElementById("datePicker").addEventListener("change", getAPOD);
-
-toggleBtn.addEventListener("click", () => {
-  document.body.classList.toggle("light");
-
-  if (document.body.classList.contains("light")) {
+  if (savedTheme === "light") {
+    document.body.classList.add("light");
     toggleBtn.textContent = "🌙 Dark Mode";
-    localStorage.setItem("theme", "light");
   } else {
     toggleBtn.textContent = "☀️ Light Mode";
-    localStorage.setItem("theme", "dark");
   }
-});
-
-const savedTheme = localStorage.getItem("theme");
-if (savedTheme === "light") {
-  document.body.classList.add("light");
-  toggleBtn.textContent = "🌙 Dark Mode";
-}
-
-getAPOD();
 
 });
-function goFull(element) {
-  if (!element) return;
+const fullBtn = document.getElementById("fullBtn");
+const img = document.getElementById("img");
 
-  if (element.requestFullscreen) {
-    element.requestFullscreen();
-  } else if (element.webkitRequestFullscreen) {
-    element.webkitRequestFullscreen(); 
-  } else if (element.msRequestFullscreen) {
-    element.msRequestFullscreen(); 
+fullBtn.addEventListener("click", () => {
+  if (!img.src) return;
+
+  if (img.requestFullscreen) {
+    img.requestFullscreen();
+  } else if (img.webkitRequestFullscreen) {
+    img.webkitRequestFullscreen();
+  } else if (img.msRequestFullscreen) {
+    img.msRequestFullscreen();
   } else {
     alert("Fullscreen not supported");
   }
+});
+if (data.media_type === "image") {
+  document.getElementById("img").style.display = "block";
+  document.getElementById("img").src = data.url;
+} else {
+  document.getElementById("img").style.display = "none";
 }

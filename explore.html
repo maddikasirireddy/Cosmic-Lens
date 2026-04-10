@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Explore</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+    <button id="backBtn" onclick="window.location.href='index.html'">
+        ⬅ Back
+    </button>
+        <button id="themeToggle">🌙 Dark Mode</button>
+        <h1>Explore 🚀</h1>
+
+        <button id="randomBtn">🎲 Random 10</button>
+        <h4>Search and filter space media by keywords:</h4>
+        <div class="searchBtn">
+            <input type="text" id="search" placeholder="Search..." />
+
+            <select id="filter">
+                <option value="all">All</option>
+                <option value="image">Images</option>
+                <option value="video">Videos</option>
+            </select>
+        </div>
+
+        <div id="container"></div>
+    </div>
+
+    <script src="explore.js"></script>
+</body>
+</html>

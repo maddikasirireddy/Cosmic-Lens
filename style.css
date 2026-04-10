@@ -66,6 +66,15 @@ button:hover {
     font-size: 1.5rem;
     color: #ffffff;
 }
+#themeToggle {
+    position: fixed;
+    background-color: #12192f;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    padding: 10px 15px;
+    border-radius: 10px;
+}
 @media (max-width: 600px) {
     h1 {
         font-size: 1.8rem;
@@ -127,38 +136,73 @@ body {
 }
 
 body.light {
-    background: radial-gradient(circle at top, #f3e8ff, #e0f2ff);
+    background: radial-gradient(circle at top, #f8f5ff, #e6f7ff);
     color: #1a1a2e;
 }
 
 /* Container */
 body.light .container {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 0 25px rgba(138, 43, 226, 0.2);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
-
+/* Heading */
 body.light h1 {
     color: #6a0dad;
-    text-shadow: 0 0 8px #c084fc;
+    text-shadow: 0 0 10px rgba(192, 132, 252, 0.6);
 }
 
-
+/* Buttons */
 body.light button {
     background: linear-gradient(135deg, #a855f7, #38bdf8);
     color: white;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
 }
 
-
+/* Inputs + Select */
 body.light input,
 body.light select {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.9);
     color: #111;
-    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-
+/* Description text */
 body.light #desc {
     color: #333;
+}
+body.light #datePicker,#search,#filter{
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    background: linear-gradient(135deg, #ffffff, #f3e8ff);
+    color: #333;
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.2);
+    transition: all 0.3s ease;
+}
+#backBtn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+#themeToggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+#randomBtn{
+    padding: 12px 120px;
+}
+.searchBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 10px 0;
 }
