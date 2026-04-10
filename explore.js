@@ -56,8 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
       container.appendChild(div);
     });
   }
-
-  // 🔍 Search + Filter
   function updateDisplay() {
     const searchValue = searchInput.value.toLowerCase();
     const filterValue = filterSelect.value;
@@ -77,16 +75,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     render(filtered);
   }
-
-  // 🎯 Event Listeners
   randomBtn.addEventListener("click", getRandomAPOD);
   searchInput.addEventListener("input", updateDisplay);
   filterSelect.addEventListener("change", updateDisplay);
 
 });
-
-
-// 🔍 Fullscreen Function
 function goFull(element) {
   if (!element) return;
 
